@@ -26,7 +26,7 @@ public class UserIOConsoleImpl implements UserIO {
         //get user input int with validation
         while (true) {
             if (scanner.hasNextInt()) {
-                return scanner.nextInt();
+                return Integer.parseInt(scanner.nextLine());
             } else {
                 System.out.println("Error, value entered is not an Integer");
                 scanner.next();
@@ -42,7 +42,7 @@ public class UserIOConsoleImpl implements UserIO {
         int outputInt = 0;
         while (true) {
             if (scanner.hasNextInt()) {
-                outputInt = scanner.nextInt();
+                outputInt = Integer.parseInt(scanner.nextLine());
                 if (outputInt < min || outputInt > max) {
                     System.out.println("Error, value entered is out of bounds: " + min + " - " + max);
                 } else {
@@ -62,7 +62,7 @@ public class UserIOConsoleImpl implements UserIO {
         //get user input int with validation
         while (true) {
             if (scanner.hasNextDouble()) {
-                return scanner.nextDouble();
+                return Double.parseDouble(scanner.nextLine());
             } else {
                 System.out.println("Error, value entered is not a Double");
                 scanner.next();
@@ -78,7 +78,7 @@ public class UserIOConsoleImpl implements UserIO {
         double outputDouble = 0;
         while (true) {
             if (scanner.hasNextDouble()) {
-                outputDouble = scanner.nextDouble();
+                outputDouble = Double.parseDouble(scanner.nextLine());
                 if (outputDouble < min || outputDouble > max) {
                     System.out.println("Error, value entered is out of bounds: " + min + " - " + max);
                 } else {
@@ -98,7 +98,7 @@ public class UserIOConsoleImpl implements UserIO {
         //get user input int with validation
         while (true) {
             if (scanner.hasNextFloat()) {
-                return scanner.nextFloat();
+                return Float.parseFloat(scanner.nextLine());
             } else {
                 System.out.println("Error, value entered is not a Float");
                 scanner.next();
@@ -114,7 +114,7 @@ public class UserIOConsoleImpl implements UserIO {
         float outputFloat = 0;
         while (true) {
             if (scanner.hasNextFloat()) {
-                outputFloat = scanner.nextFloat();
+                outputFloat = Float.parseFloat(scanner.nextLine());
                 if (outputFloat < min || outputFloat > max) {
                     System.out.println("Error, value entered is out of bounds: " + min + " - " + max);
                 } else {
@@ -134,7 +134,7 @@ public class UserIOConsoleImpl implements UserIO {
         //get user input int with validation
         while (true) {
             if (scanner.hasNextLong()) {
-                return scanner.nextLong();
+                return Long.parseLong(scanner.nextLine());
             } else {
                 System.out.println("Error, value entered is not a Long");
                 scanner.next();
@@ -150,7 +150,7 @@ public class UserIOConsoleImpl implements UserIO {
         long outputLong = 0;
         while (true) {
             if (scanner.hasNextLong()) {
-                outputLong = scanner.nextLong();
+                outputLong = Long.parseLong(scanner.nextLine());
                 if (outputLong < min || outputLong > max) {
                     System.out.println("Error, value entered is out of bounds: " + min + " - " + max);
                 } else {

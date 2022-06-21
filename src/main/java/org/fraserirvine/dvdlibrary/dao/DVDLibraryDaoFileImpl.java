@@ -11,14 +11,17 @@ import java.util.*;
 
 public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
 
-    public static final String LIBRARY_FILE = "libary.txt";
+    public static final String LIBRARY_FILE = "src/main/java/org/fraserirvine/dvdlibrary/library.txt";
     public static final String DELIMITER = "::";
 
     private Map<String, DVD> dvds = new HashMap<>();
 
     @Override
     public DVD addDVD(String dvdId, DVD dvd) {
-        return null;
+        loadLibrary();
+        DVD newDVD = dvds.put(dvdId, dvd);
+        writeLibrary();
+        return newDVD;
     }
 
     @Override
@@ -30,9 +33,9 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     }
 
     @Override
-    public DVD editDVD(DVD newDVD) {
+    public DVD editDVD(DVD dvd) {
         loadLibrary();
-        dvds.put(newDVD.getDvdId(), newDVD);
+        DVD newDVD = dvds.put(dvd.getDvdId(), dvd);
         writeLibrary();
         return newDVD;
     }
@@ -81,7 +84,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         try {
             lines = Files.readAllLines(Paths.get(LIBRARY_FILE));
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
         for (String currentLine : lines) {
