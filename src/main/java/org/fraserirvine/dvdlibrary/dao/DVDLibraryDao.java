@@ -16,7 +16,7 @@ public interface DVDLibraryDao {
 
     DVD getSingleDVD(String dvdId);
 
-    DVD searchDVD(String title);
+    List<DVD> searchDVD(String title);
 
     DVD loadDVD(String path);
 

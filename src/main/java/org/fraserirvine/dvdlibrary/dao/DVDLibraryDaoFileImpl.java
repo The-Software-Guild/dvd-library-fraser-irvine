@@ -53,8 +53,23 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     }
 
     @Override
-    public DVD searchDVD(String title) {
-        return null;
+    public List<DVD> searchDVD(String title) {
+        loadLibrary();
+        //initialise empty list to hold search returns
+        List<DVD> searchReturns = new ArrayList<>();
+
+        //lowercase the search params to ignore casing during logic
+        String titleLowCase = title.toLowerCase();
+
+        //iterate through map to look for match
+        dvds.forEach((key, value) -> {
+            //lower case the dvd title to ignore casing
+            String currentTitle = value.getTitle().toLowerCase();
+            if (currentTitle.contains(titleLowCase)) {
+                searchReturns.add(value);
+            }
+        });
+        return searchReturns;
     }
 
     @Override

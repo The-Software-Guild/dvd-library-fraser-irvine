@@ -166,6 +166,14 @@ public class DVDLibraryView {
     }
 
     //
+    // Search DVD
+    //
+
+    public String getSearchParams() {
+        return io.readString("Enter DVD Title: ");
+    }
+
+    //
     //Banners
     //
 

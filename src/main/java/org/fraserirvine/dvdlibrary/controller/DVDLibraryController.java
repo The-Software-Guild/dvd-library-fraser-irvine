@@ -128,7 +128,9 @@ public class DVDLibraryController {
     }
 
     private void searchDVDs() {
-
+        view.displaySearchDVDBanner();
+        String searchParams = view.getSearchParams();
+        view.displayDVDList(dao.searchDVD(searchParams));
     }
 
     private void loadDVD() {
