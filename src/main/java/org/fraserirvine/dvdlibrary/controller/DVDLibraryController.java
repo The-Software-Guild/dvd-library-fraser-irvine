@@ -83,7 +83,7 @@ public class DVDLibraryController {
         //show the DVD thats being edited
         view.displayDVD(dvd);
         boolean keepEditing = true;
-        DVD dvdEdit;
+        DVD dvdEdit = dvd;
         while (keepEditing) {
             int editSelection = view.printEditMenuAndGetSelection();
             switch (editSelection) {
@@ -111,13 +111,15 @@ public class DVDLibraryController {
             }
             keepEditing = view.printPromptKeepEditingAndGetSelection();
         }
-
-
-
+        dao.editDVD(dvdEdit);
+        view.displayEditDVDSuccessBanner();
     }
 
     private void listDVDs() {
-
+        view.displayListDVDBanner();
+        dao.listDVDs().forEach((dvd) -> {
+            System.out.println(dvd.toString());
+        });
     }
 
     private void showDVD() {

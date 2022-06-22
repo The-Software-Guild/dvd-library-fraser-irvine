@@ -2,8 +2,6 @@ package org.fraserirvine.dvdlibrary.ui;
 
 import org.fraserirvine.dvdlibrary.dto.DVD;
 
-import java.util.Date;
-
 public class DVDLibraryView {
 
     private UserIO io;
@@ -28,7 +26,7 @@ public class DVDLibraryView {
     }
 
     public int printEditMenuAndGetSelection() {
-        io.print("Edit Menu");
+        io.print("=== Edit Menu ===");
         io.print("What would you like to edit?");
         io.print("1. Title");
         io.print("2. Release Date");
@@ -121,19 +119,33 @@ public class DVDLibraryView {
         return currentDVD;
     }
 
-    public void displayDVD(DVD dvd) {
+    public void displayDVDWithPrompt(DVD dvd) {
         if (dvd != null) {
-            io.print(dvd.getDvdId());
-            io.print(dvd.getTitle());
-            io.print(dvd.getReleaseDate());
-            io.print(dvd.getRating());
-            io.print(dvd.getDirectorName());
-            io.print(dvd.getStudio());
-            io.print(dvd.getUserRating());
+            io.print("ID: " + dvd.getDvdId());
+            io.print("Title: " + dvd.getTitle());
+            io.print("Release Date: " + dvd.getReleaseDate());
+            io.print("Rating: " + dvd.getRating());
+            io.print("Director: " + dvd.getDirectorName());
+            io.print("Studio: " + dvd.getStudio());
+            io.print("User Rating: " + dvd.getUserRating());
         } else {
             io.print("DVD not found");
         }
         io.readString("Please hit enter to continue");
+    }
+
+    public void displayDVD(DVD dvd) {
+        if (dvd != null) {
+            io.print("ID: " + dvd.getDvdId());
+            io.print("Title: " + dvd.getTitle());
+            io.print("Release Date: " + dvd.getReleaseDate());
+            io.print("Rating: " + dvd.getRating());
+            io.print("Director: " + dvd.getDirectorName());
+            io.print("Studio: " + dvd.getStudio());
+            io.print("User Rating: " + dvd.getUserRating());
+        } else {
+            io.print("DVD not found");
+        }
     }
 
     public void displayRemoveResult(DVD dvdRecord) {
@@ -196,6 +208,10 @@ public class DVDLibraryView {
 
     public void displayAddDVDSuccessBanner() {
         io.print("Successfully Added DVD");
+    }
+
+    public void displayEditDVDSuccessBanner() {
+        io.print("Successfully edited DVD");
     }
 
 

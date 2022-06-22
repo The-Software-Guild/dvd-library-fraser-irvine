@@ -71,4 +71,23 @@ public class DVD {
     public void setUserRating(String userRating) {
         this.userRating = userRating;
     }
+
+    @Override
+    public String toString() {
+        return "[ID: " +
+                this.dvdId +
+                " | Title: " +
+                this.title +
+                " | Release Date: " +
+                this.releaseDate +
+                " | Rating: " +
+                this.rating +
+                " | Director: " +
+                this.directorName +
+                " | Studio: " +
+                this.studio +
+                " | User Rating: " +
+                this.userRating;
+    }
+
 }
