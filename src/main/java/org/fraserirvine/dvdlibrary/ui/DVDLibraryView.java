@@ -12,8 +12,9 @@ public class DVDLibraryView {
         this.io = io;
     }
 
-    public int printMenuAndGetSelection() {
+    public int printMenuAndGetSelection(String path) {
         io.print("Main Menu");
+        printCurrentPath(path);
         io.print("1. Add DVD");
         io.print("2. Remove DVD");
         io.print("3. Edit DVD");

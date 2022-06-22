@@ -19,7 +19,6 @@ public class DVDLibraryController {
     public void run() {
         boolean running = true;
         int menuSelection = 0;
-
         try {
             while (running) {
                 menuSelection = getMenuSelection();
@@ -60,7 +59,8 @@ public class DVDLibraryController {
     }
 
     private int getMenuSelection() {
-        return view.printMenuAndGetSelection();
+        String currentPath = dao.getPath();
+        return view.printMenuAndGetSelection(currentPath);
     }
 
     private int getEditMenuSelection() {

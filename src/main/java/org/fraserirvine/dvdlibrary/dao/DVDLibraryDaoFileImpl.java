@@ -12,17 +12,16 @@ import java.util.*;
 
 public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
 
-    private String libraryPath = "src/main/java/org/fraserirvine/dvdlibrary/library.txt";
+    private String libraryPath = "";
     private static final String DELIMITER = "::";
 
     private Map<String, DVD> dvds = new HashMap<>();
 
     @Override
-    public DVD addDVD(String dvdId, DVD dvd) throws DVDLibraryDaoException {
+    public void addDVD(String dvdId, DVD dvd) throws DVDLibraryDaoException {
         loadLibrary();
-        DVD newDVD = dvds.put(dvdId, dvd);
+        dvds.put(dvdId, dvd);
         writeLibrary();
-        return newDVD;
     }
 
     @Override

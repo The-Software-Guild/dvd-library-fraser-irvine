@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DVDLibraryDao {
 
-    DVD addDVD(String dvdId, DVD dvd) throws DVDLibraryDaoException;
+    void addDVD(String dvdId, DVD dvd) throws DVDLibraryDaoException;
 
     DVD removeDVD(String dvdId) throws DVDLibraryDaoException;
 
@@ -20,6 +20,7 @@ public interface DVDLibraryDao {
 
     void loadDVD(String path);
 
+    String getPath();
 
 
 
