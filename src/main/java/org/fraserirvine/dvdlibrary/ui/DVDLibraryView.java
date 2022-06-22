@@ -23,7 +23,7 @@ public class DVDLibraryView {
         io.print("7. Load DVD");
         io.print("8. Exit Program");
 
-        return io.readInt("Please select from the above choices", 1, 7);
+        return io.readInt("Please select from the above choices", 1, 8);
 
     }
 

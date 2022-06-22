@@ -2,6 +2,7 @@ package org.fraserirvine.dvdlibrary.dao;
 
 import org.fraserirvine.dvdlibrary.dto.DVD;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +18,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     private Map<String, DVD> dvds = new HashMap<>();
 
     @Override
-    public DVD addDVD(String dvdId, DVD dvd) {
+    public DVD addDVD(String dvdId, DVD dvd) throws DVDLibraryDaoException {
         loadLibrary();
         DVD newDVD = dvds.put(dvdId, dvd);
         writeLibrary();
@@ -25,7 +26,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     }
 
     @Override
-    public DVD removeDVD(String dvdId) {
+    public DVD removeDVD(String dvdId) throws DVDLibraryDaoException {
         loadLibrary();
         DVD removedDVD = dvds.remove(dvdId);
         writeLibrary();
@@ -33,7 +34,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     }
 
     @Override
-    public DVD editDVD(DVD dvd) {
+    public DVD editDVD(DVD dvd) throws DVDLibraryDaoException {
         loadLibrary();
         DVD newDVD = dvds.put(dvd.getDvdId(), dvd);
         writeLibrary();
@@ -41,19 +42,19 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     }
 
     @Override
-    public List<DVD> listDVDs() {
+    public List<DVD> listDVDs() throws DVDLibraryDaoException {
         loadLibrary();
         return new ArrayList<>(dvds.values());
     }
 
     @Override
-    public DVD getSingleDVD(String dvdId) {
+    public DVD getSingleDVD(String dvdId) throws DVDLibraryDaoException {
         loadLibrary();
         return dvds.get(dvdId);
     }
 
     @Override
-    public List<DVD> searchDVD(String title) {
+    public List<DVD> searchDVD(String title) throws DVDLibraryDaoException {
         loadLibrary();
         //initialise empty list to hold search returns
         List<DVD> searchReturns = new ArrayList<>();
@@ -75,7 +76,6 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     @Override
     public void loadDVD(String path) {
         setPath(path);
-
     }
 
     private DVD unmarshallDVD(String dvdAsText) {
@@ -95,12 +95,12 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         return dvdFromFile;
     }
 
-    private void loadLibrary() {
+    private void loadLibrary() throws DVDLibraryDaoException {
         List<String> lines;
         try {
             lines = Files.readAllLines(Paths.get(libraryPath));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new DVDLibraryDaoException("Could not load file",e);
         }
 
         for (String currentLine : lines) {
@@ -121,7 +121,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         return dvdAsText;
     }
 
-    private void writeLibrary() {
+    private void writeLibrary() throws DVDLibraryDaoException {
         PrintWriter out;
 
         try {

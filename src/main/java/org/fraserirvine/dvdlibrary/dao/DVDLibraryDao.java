@@ -6,17 +6,17 @@ import java.util.List;
 
 public interface DVDLibraryDao {
 
-    DVD addDVD(String dvdId, DVD dvd);
+    DVD addDVD(String dvdId, DVD dvd) throws DVDLibraryDaoException;
 
-    DVD removeDVD(String dvdId);
+    DVD removeDVD(String dvdId) throws DVDLibraryDaoException;
 
-    DVD editDVD(DVD newDVD);
+    DVD editDVD(DVD newDVD) throws DVDLibraryDaoException;
 
-    List<DVD> listDVDs();
+    List<DVD> listDVDs() throws DVDLibraryDaoException;
 
-    DVD getSingleDVD(String dvdId);
+    DVD getSingleDVD(String dvdId) throws DVDLibraryDaoException;
 
-    List<DVD> searchDVD(String title);
+    List<DVD> searchDVD(String title) throws DVDLibraryDaoException;
 
     void loadDVD(String path);
 
