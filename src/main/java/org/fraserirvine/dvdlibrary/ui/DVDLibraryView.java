@@ -2,6 +2,8 @@ package org.fraserirvine.dvdlibrary.ui;
 
 import org.fraserirvine.dvdlibrary.dto.DVD;
 
+import java.util.List;
+
 public class DVDLibraryView {
 
     private UserIO io;
@@ -155,6 +157,12 @@ public class DVDLibraryView {
             io.print("DVD not found");
         }
         io.readString("Please hit enter to continue");
+    }
+
+    public void displayDVDList(List<DVD> dvdList) {
+        dvdList.forEach((dvd) -> {
+            io.print(dvd.toString());
+        });
     }
 
     //

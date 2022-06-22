@@ -117,13 +117,14 @@ public class DVDLibraryController {
 
     private void listDVDs() {
         view.displayListDVDBanner();
-        dao.listDVDs().forEach((dvd) -> {
-            System.out.println(dvd.toString());
-        });
+        view.displayDVDList(dao.listDVDs());
     }
 
     private void showDVD() {
-
+        view.displayShowDVDBanner();
+        String dvdId = view.getDVDIdChoice();
+        DVD dvd = dao.getSingleDVD(dvdId);
+        view.displayDVD(dvd);
     }
 
     private void searchDVDs() {
