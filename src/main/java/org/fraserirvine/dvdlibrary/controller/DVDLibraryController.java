@@ -1,6 +1,7 @@
 package org.fraserirvine.dvdlibrary.controller;
 
 import org.fraserirvine.dvdlibrary.dao.DVDLibraryDao;
+import org.fraserirvine.dvdlibrary.dao.DVDLibraryDaoException;
 import org.fraserirvine.dvdlibrary.dto.DVD;
 import org.fraserirvine.dvdlibrary.ui.DVDLibraryView;
 
@@ -19,37 +20,41 @@ public class DVDLibraryController {
         boolean running = true;
         int menuSelection = 0;
 
-        while (running) {
-            menuSelection = getMenuSelection();
+        try {
+            while (running) {
+                menuSelection = getMenuSelection();
 
-            switch (menuSelection) {
-                case 1:
-                    addDVD();
-                    break;
-                case 2:
-                    removeDVD();
-                    break;
-                case 3:
-                    editDVD();
-                    break;
-                case 4:
-                    listDVDs();
-                    break;
-                case 5:
-                    showDVD();
-                    break;
-                case 6:
-                    searchDVDs();
-                    break;
-                case 7:
-                    loadDVD();
-                    break;
-                case 8:
-                    running = false;
-                    break;
-                default:
-                    unknownCommand();
+                switch (menuSelection) {
+                    case 1:
+                        addDVD();
+                        break;
+                    case 2:
+                        removeDVD();
+                        break;
+                    case 3:
+                        editDVD();
+                        break;
+                    case 4:
+                        listDVDs();
+                        break;
+                    case 5:
+                        showDVD();
+                        break;
+                    case 6:
+                        searchDVDs();
+                        break;
+                    case 7:
+                        loadDVD();
+                        break;
+                    case 8:
+                        running = false;
+                        break;
+                    default:
+                        unknownCommand();
+                }
             }
+        } catch (DVDLibraryDaoException e) {
+            view.displayErrorMessage(e.getMessage());
         }
         view.displayExitBanner();
     }
@@ -62,21 +67,21 @@ public class DVDLibraryController {
         return view.printEditMenuAndGetSelection();
     }
 
-    private void addDVD() {
+    private void addDVD() throws DVDLibraryDaoException {
         view.displayAddDVDBanner();
         DVD newDVD = view.getNewDVDInfo();
         dao.addDVD(newDVD.getDvdId(), newDVD);
         view.displayAddDVDSuccessBanner();
     }
 
-    private void removeDVD() {
+    private void removeDVD() throws DVDLibraryDaoException {
         view.displayRemoveDVDBanner();
         String dvdId = view.getDVDIdChoice();
         DVD dvd = dao.removeDVD(dvdId);
         view.displayRemoveResult(dvd);
     }
 
-    private void editDVD() {
+    private void editDVD() throws DVDLibraryDaoException {
         view.displayEditDVDBanner();
         String dvdId = view.getDVDIdChoice();
         DVD dvd = dao.getSingleDVD(dvdId);
@@ -115,19 +120,19 @@ public class DVDLibraryController {
         view.displayEditDVDSuccessBanner();
     }
 
-    private void listDVDs() {
+    private void listDVDs() throws DVDLibraryDaoException {
         view.displayListDVDBanner();
         view.displayDVDList(dao.listDVDs());
     }
 
-    private void showDVD() {
+    private void showDVD() throws DVDLibraryDaoException {
         view.displayShowDVDBanner();
         String dvdId = view.getDVDIdChoice();
         DVD dvd = dao.getSingleDVD(dvdId);
         view.displayDVD(dvd);
     }
 
-    private void searchDVDs() {
+    private void searchDVDs() throws DVDLibraryDaoException {
         view.displaySearchDVDBanner();
         String searchParams = view.getSearchParams();
         view.displayDVDList(dao.searchDVD(searchParams));
