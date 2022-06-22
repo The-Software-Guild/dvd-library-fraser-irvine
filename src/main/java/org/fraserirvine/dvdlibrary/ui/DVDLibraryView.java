@@ -174,6 +174,18 @@ public class DVDLibraryView {
     }
 
     //
+    // Load DVD
+    //
+
+    public void printCurrentPath(String path) {
+        io.print("Current Path: " + path);
+    }
+
+    public String getNewLibraryPath() {
+        return io.readString("Enter the DVD library path");
+    }
+
+    //
     //Banners
     //
 
@@ -230,5 +242,8 @@ public class DVDLibraryView {
         io.print("Successfully edited DVD");
     }
 
+    public void displayLoadDVDSuccessBanner(String path) {
+        io.print("Successfully changed library path to:\n" + path);
+    }
 
 }

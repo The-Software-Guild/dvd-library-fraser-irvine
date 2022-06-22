@@ -134,7 +134,10 @@ public class DVDLibraryController {
     }
 
     private void loadDVD() {
-
+        view.displayLoadDVDBanner();
+        String newPath = view.getNewLibraryPath();
+        dao.loadDVD(newPath);
+        view.displayLoadDVDSuccessBanner(newPath);
     }
 
     private void unknownCommand() {

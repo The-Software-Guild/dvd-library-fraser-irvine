@@ -11,8 +11,8 @@ import java.util.*;
 
 public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
 
-    public static final String LIBRARY_FILE = "src/main/java/org/fraserirvine/dvdlibrary/library.txt";
-    public static final String DELIMITER = "::";
+    private String libraryPath = "src/main/java/org/fraserirvine/dvdlibrary/library.txt";
+    private static final String DELIMITER = "::";
 
     private Map<String, DVD> dvds = new HashMap<>();
 
@@ -73,8 +73,9 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     }
 
     @Override
-    public DVD loadDVD(String path) {
-        return null;
+    public void loadDVD(String path) {
+        setPath(path);
+
     }
 
     private DVD unmarshallDVD(String dvdAsText) {
@@ -97,7 +98,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     private void loadLibrary() {
         List<String> lines;
         try {
-            lines = Files.readAllLines(Paths.get(LIBRARY_FILE));
+            lines = Files.readAllLines(Paths.get(libraryPath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -124,7 +125,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         PrintWriter out;
 
         try {
-            out = new PrintWriter(new FileWriter(LIBRARY_FILE));
+            out = new PrintWriter(new FileWriter(libraryPath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -139,6 +140,16 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         }
 
         out.close();
+    }
+
+    // load/save methods
+
+    public String getPath() {
+        return libraryPath;
+    }
+
+    private void setPath(String path) {
+        libraryPath = path;
     }
 
 }

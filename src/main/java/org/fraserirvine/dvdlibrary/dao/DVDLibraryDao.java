@@ -18,7 +18,7 @@ public interface DVDLibraryDao {
 
     List<DVD> searchDVD(String title);
 
-    DVD loadDVD(String path);
+    void loadDVD(String path);
 
 
 
