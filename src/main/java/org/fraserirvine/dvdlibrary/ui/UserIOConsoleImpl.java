@@ -18,6 +18,27 @@ public class UserIOConsoleImpl implements UserIO {
         return scanner.nextLine();
     }
 
+    public String readStringAllowEmpty(String prompt) {
+        //display the prompt
+        System.out.println(prompt);
+        //replace empty string with "N/A"
+        String inputString = scanner.nextLine();
+        if (inputString.equals("")) {
+            inputString = "N/A";
+        }
+        return inputString;
+    }
+
+    public String readStringAllowEmpty(String prompt, String substitute) {
+        //display the prompt
+        System.out.println(prompt);
+        String inputString = scanner.nextLine();
+        if (inputString.equals("")) {
+            inputString = substitute;
+        }
+        return inputString;
+    }
+
     @Override
     public int readInt(String prompt) {
         //display the prompt

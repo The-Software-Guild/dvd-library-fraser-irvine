@@ -22,4 +22,6 @@ public interface UserIO {
 
     String readString(String prompt);
 
+    String readStringAllowEmpty(String prompt);
+
 }
