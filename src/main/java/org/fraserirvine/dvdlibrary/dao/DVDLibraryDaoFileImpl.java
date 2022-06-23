@@ -2,7 +2,6 @@ package org.fraserirvine.dvdlibrary.dao;
 
 import org.fraserirvine.dvdlibrary.dto.DVD;
 
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,14 +17,14 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     private Map<String, DVD> dvds = new HashMap<>();
 
     @Override
-    public void addDVD(String dvdId, DVD dvd) throws DVDLibraryDaoException {
+    public void addDVD(String dvdId, DVD dvd) throws DVDLibraryPersistenceException {
         loadLibrary();
         dvds.put(dvdId, dvd);
         writeLibrary();
     }
 
     @Override
-    public DVD removeDVD(String dvdId) throws DVDLibraryDaoException {
+    public DVD removeDVD(String dvdId) throws DVDLibraryPersistenceException {
         loadLibrary();
         DVD removedDVD = dvds.remove(dvdId);
         writeLibrary();
@@ -33,7 +32,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     }
 
     @Override
-    public DVD editDVD(DVD dvd) throws DVDLibraryDaoException {
+    public DVD editDVD(DVD dvd) throws DVDLibraryPersistenceException {
         loadLibrary();
         DVD newDVD = dvds.put(dvd.getDvdId(), dvd);
         writeLibrary();
@@ -41,19 +40,19 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     }
 
     @Override
-    public List<DVD> listDVDs() throws DVDLibraryDaoException {
+    public List<DVD> listDVDs() throws DVDLibraryPersistenceException {
         loadLibrary();
         return new ArrayList<>(dvds.values());
     }
 
     @Override
-    public DVD getSingleDVD(String dvdId) throws DVDLibraryDaoException {
+    public DVD getSingleDVD(String dvdId) throws DVDLibraryPersistenceException {
         loadLibrary();
         return dvds.get(dvdId);
     }
 
     @Override
-    public List<DVD> searchDVD(String title) throws DVDLibraryDaoException {
+    public List<DVD> searchDVD(String title) throws DVDLibraryPersistenceException {
         loadLibrary();
         //initialise empty list to hold search returns
         List<DVD> searchReturns = new ArrayList<>();
@@ -94,12 +93,12 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         return dvdFromFile;
     }
 
-    private void loadLibrary() throws DVDLibraryDaoException {
+    private void loadLibrary() throws DVDLibraryPersistenceException {
         List<String> lines;
         try {
             lines = Files.readAllLines(Paths.get(libraryPath));
         } catch (IOException e) {
-            throw new DVDLibraryDaoException("Could not load file",e);
+            throw new DVDLibraryPersistenceException("Could not load file",e);
         }
 
         for (String currentLine : lines) {
@@ -120,7 +119,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         return dvdAsText;
     }
 
-    private void writeLibrary() throws DVDLibraryDaoException {
+    private void writeLibrary() throws DVDLibraryPersistenceException {
         PrintWriter out;
 
         try {

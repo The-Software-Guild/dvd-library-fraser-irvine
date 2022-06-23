@@ -1,17 +1,19 @@
 package org.fraserirvine.dvdlibrary.controller;
 
-import org.fraserirvine.dvdlibrary.dao.DVDLibraryDao;
-import org.fraserirvine.dvdlibrary.dao.DVDLibraryDaoException;
+import org.fraserirvine.dvdlibrary.dao.DVDLibraryPersistenceException;
 import org.fraserirvine.dvdlibrary.dto.DVD;
+import org.fraserirvine.dvdlibrary.service.DVDLibraryDataValidationException;
+import org.fraserirvine.dvdlibrary.service.DVDLibraryDuplicateIdException;
+import org.fraserirvine.dvdlibrary.service.DVDLibraryServiceLayer;
 import org.fraserirvine.dvdlibrary.ui.DVDLibraryView;
 
 public class DVDLibraryController {
 
     private DVDLibraryView view;
-    private DVDLibraryDao dao;
+    private DVDLibraryServiceLayer service;
 
-    public DVDLibraryController(DVDLibraryDao dao, DVDLibraryView view) {
-        this.dao = dao;
+    public DVDLibraryController(DVDLibraryServiceLayer service, DVDLibraryView view) {
+        this.service = service;
         this.view = view;
     }
 
@@ -52,14 +54,14 @@ public class DVDLibraryController {
                         unknownCommand();
                 }
             }
-        } catch (DVDLibraryDaoException e) {
+        } catch (DVDLibraryPersistenceException e) {
             view.displayErrorMessage(e.getMessage());
         }
         view.displayExitBanner();
     }
 
     private int getMenuSelection() {
-        String currentPath = dao.getPath();
+        String currentPath = service.getPath();
         return view.printMenuAndGetSelection(currentPath);
     }
 
@@ -67,24 +69,34 @@ public class DVDLibraryController {
         return view.printEditMenuAndGetSelection();
     }
 
-    private void addDVD() throws DVDLibraryDaoException {
+    private void addDVD() throws DVDLibraryPersistenceException {
         view.displayAddDVDBanner();
+        boolean hasErrors = false;
+
         DVD newDVD = view.getNewDVDInfo();
-        dao.addDVD(newDVD.getDvdId(), newDVD);
-        view.displayAddDVDSuccessBanner();
+        do {
+            try {
+                service.addDVD(newDVD);
+                view.displayAddDVDSuccessBanner();
+                hasErrors = false;
+            } catch (DVDLibraryDuplicateIdException | DVDLibraryDataValidationException e) {
+                hasErrors = true;
+                view.displayErrorMessage(e.getMessage());
+            }
+        } while (hasErrors);
     }
 
-    private void removeDVD() throws DVDLibraryDaoException {
+    private void removeDVD() throws DVDLibraryPersistenceException {
         view.displayRemoveDVDBanner();
         String dvdId = view.getDVDIdChoice();
-        DVD dvd = dao.removeDVD(dvdId);
+        DVD dvd = service.removeDVD(dvdId);
         view.displayRemoveResult(dvd);
     }
 
-    private void editDVD() throws DVDLibraryDaoException {
+    private void editDVD() throws DVDLibraryPersistenceException {
         view.displayEditDVDBanner();
         String dvdId = view.getDVDIdChoice();
-        DVD dvd = dao.getSingleDVD(dvdId);
+        DVD dvd = service.getSingleDVD(dvdId);
         //show the DVD thats being edited
         view.displayDVD(dvd);
         boolean keepEditing = true;
@@ -116,32 +128,36 @@ public class DVDLibraryController {
             }
             keepEditing = view.printPromptKeepEditingAndGetSelection();
         }
-        dao.editDVD(dvdEdit);
+        service.editDVD(dvdEdit);
         view.displayEditDVDSuccessBanner();
     }
 
-    private void listDVDs() throws DVDLibraryDaoException {
+    private void listDVDs() throws DVDLibraryPersistenceException {
         view.displayListDVDBanner();
-        view.displayDVDList(dao.listDVDs());
+        view.displayDVDList(service.listDVDs());
     }
 
-    private void showDVD() throws DVDLibraryDaoException {
+    private void showDVD() throws DVDLibraryPersistenceException {
         view.displayShowDVDBanner();
         String dvdId = view.getDVDIdChoice();
-        DVD dvd = dao.getSingleDVD(dvdId);
+        DVD dvd = service.getSingleDVD(dvdId);
         view.displayDVD(dvd);
     }
 
-    private void searchDVDs() throws DVDLibraryDaoException {
+    private void searchDVDs() throws DVDLibraryPersistenceException {
         view.displaySearchDVDBanner();
         String searchParams = view.getSearchParams();
-        view.displayDVDList(dao.searchDVD(searchParams));
+        view.displayDVDList(service.searchDVD(searchParams));
     }
 
     private void loadDVD() {
         view.displayLoadDVDBanner();
         String newPath = view.getNewLibraryPath();
-        dao.loadDVD(newPath);
+        try {
+            service.loadDVD(newPath);
+        } catch (DVDLibraryPersistenceException e) {
+            throw new RuntimeException(e);
+        }
         view.displayLoadDVDSuccessBanner(newPath);
     }
 
