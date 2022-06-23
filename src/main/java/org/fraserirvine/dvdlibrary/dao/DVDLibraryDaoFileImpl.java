@@ -12,8 +12,8 @@ import java.util.*;
 
 public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
 
-    private String libraryPath = "";
-    private static final String DELIMITER = "::";
+    public String libraryPath = "";
+    public static final String DELIMITER = "::";
 
     private Map<String, DVD> dvds = new HashMap<>();
 
@@ -147,7 +147,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         return libraryPath;
     }
 
-    private void setPath(String path) {
+    public void setPath(String path) {
         libraryPath = path;
     }
 

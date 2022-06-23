@@ -22,6 +22,8 @@ public interface DVDLibraryDao {
 
     String getPath();
 
+    void setPath(String path);
+
 
 
 }
