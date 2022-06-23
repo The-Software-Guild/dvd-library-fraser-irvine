@@ -15,13 +15,7 @@ public class UserIOConsoleImpl implements UserIO {
     public String readString(String prompt) {
         //display the prompt
         System.out.println(prompt);
-        //use a scanner to get the value
-        //and replace an empty selection with a single space
-        String inputString = scanner.nextLine();
-        if (inputString.equals("")) {
-            inputString = " ";
-        }
-        return inputString;
+        return scanner.nextLine();
     }
 
     @Override
