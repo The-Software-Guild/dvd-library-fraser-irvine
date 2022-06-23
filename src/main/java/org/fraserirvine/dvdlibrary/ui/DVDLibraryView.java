@@ -86,7 +86,7 @@ public class DVDLibraryView {
     }
 
     public DVD editDVDUserRating(DVD dvd) {
-        dvd.setUserRating(io.readString(displayEditingElement("User Rating")));
+        dvd.setUserRating(io.readStringAllowEmpty(displayEditingElement("User Rating")));
         return dvd;
     }
 
@@ -110,7 +110,7 @@ public class DVDLibraryView {
         String rating = io.readString("Please enter rating");
         String directorName = io.readString("Pleaser enter director name");
         String studio = io.readString("Please enter studio name");
-        String userRating = io.readString("Optional: enter user rating");
+        String userRating = io.readStringAllowEmpty("Optional: enter user rating");
 
         DVD currentDVD = new DVD(dvdId);
         currentDVD.setTitle(title);
