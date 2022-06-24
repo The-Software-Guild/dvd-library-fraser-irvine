@@ -1,6 +1,6 @@
 package org.fraserirvine.dvdlibrary.dto;
 
-import java.util.Date;
+import java.util.Objects;
 
 public class DVD {
 
@@ -70,6 +70,51 @@ public class DVD {
 
     public void setUserRating(String userRating) {
         this.userRating = userRating;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.title);
+        hash = 89 * hash + Objects.hashCode(this.releaseDate);
+        hash = 89 * hash + Objects.hashCode(this.rating);
+        hash = 89 * hash + Objects.hashCode(this.directorName);
+        hash = 89 * hash + Objects.hashCode(this.studio);
+        hash = 89 * hash + Objects.hashCode(this.userRating);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DVD other = (DVD) obj;
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.releaseDate, other.releaseDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.rating, other.rating)) {
+            return false;
+        }
+        if (!Objects.equals(this.directorName, other.directorName)) {
+            return false;
+        }
+        if (!Objects.equals(this.studio, other.studio)) {
+            return false;
+        }
+        if (!Objects.equals(this.userRating, other.userRating)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
