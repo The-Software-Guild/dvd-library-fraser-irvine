@@ -1,12 +1,13 @@
 package org.fraserirvine.dvdlibrary.dto;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class DVD {
 
     private String dvdId;
     private String title;
-    private String releaseDate;
+    private LocalDate releaseDate;
     private String rating;
     private String directorName;
     private String studio;
@@ -32,12 +33,16 @@ public class DVD {
         this.title = title;
     }
 
-    public String getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = LocalDate.parse(releaseDate);
     }
 
     public String getRating() {
