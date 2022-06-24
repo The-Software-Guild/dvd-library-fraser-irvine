@@ -2,6 +2,7 @@ package org.fraserirvine.dvdlibrary.ui;
 
 import org.fraserirvine.dvdlibrary.dto.DVD;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class DVDLibraryView {
@@ -66,7 +67,7 @@ public class DVDLibraryView {
     }
 
     public DVD editDVDRelease(DVD dvd) {
-        dvd.setReleaseDate(io.readString(displayEditingElement("Release Date")));
+        dvd.setReleaseDate(io.readDate(displayEditingElement("Release Date")));
         return dvd;
     }
 
@@ -106,7 +107,7 @@ public class DVDLibraryView {
     public DVD getNewDVDInfo() {
         String dvdId = io.readString("Please enter DVD ID");
         String title = io.readString("Please enter DVD title");
-        String releaseDate = io.readString("Please enter release Date");
+        LocalDate releaseDate = io.readDate("Please enter release Date");
         String rating = io.readString("Please enter rating");
         String directorName = io.readString("Pleaser enter director name");
         String studio = io.readString("Please enter studio name");

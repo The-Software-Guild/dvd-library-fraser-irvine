@@ -1,5 +1,7 @@
 package org.fraserirvine.dvdlibrary.ui;
 
+import java.time.LocalDate;
+
 public interface UserIO {
 
     void print(String msg);
@@ -23,5 +25,7 @@ public interface UserIO {
     String readString(String prompt);
 
     String readStringAllowEmpty(String prompt);
+
+    LocalDate readDate(String prompt);
 
 }

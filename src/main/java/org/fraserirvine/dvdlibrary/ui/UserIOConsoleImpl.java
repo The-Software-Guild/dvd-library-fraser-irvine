@@ -1,5 +1,7 @@
 package org.fraserirvine.dvdlibrary.ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class UserIOConsoleImpl implements UserIO {
@@ -181,6 +183,24 @@ public class UserIOConsoleImpl implements UserIO {
                 scanner.next();
             }
         }
+    }
+
+    @Override
+    public LocalDate readDate(String prompt) {
+        //display the prompt
+        System.out.println(prompt);
+        LocalDate outputLd;
+        //input validation for insesrting date in ISO format
+        while (true) {
+            String dateString = scanner.nextLine();
+            try {
+                outputLd = LocalDate.parse(dateString);
+                break;
+            } catch (DateTimeParseException e) {
+                System.out.println("The inserted date must be in ISO Format: YYYY-MM-DD, try again.");
+            }
+        }
+        return outputLd;
     }
 
 }
