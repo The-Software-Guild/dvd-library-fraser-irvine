@@ -2,6 +2,7 @@ package org.fraserirvine.dvdlibrary.service;
 
 import org.fraserirvine.dvdlibrary.dao.DVDLibraryPersistenceException;
 import org.fraserirvine.dvdlibrary.dto.DVD;
+import org.fraserirvine.dvdlibrary.dto.MPAA;
 
 import java.util.List;
 
@@ -17,10 +18,26 @@ public interface DVDLibraryServiceLayer {
 
     DVD getSingleDVD(String dvdId) throws DVDLibraryPersistenceException;
 
-    List<DVD> searchDVD(String title) throws DVDLibraryPersistenceException;
+    List<DVD> searchByTitle(String title) throws DVDLibraryPersistenceException;
+
+    List<DVD> searchByNYears(int duration) throws DVDLibraryPersistenceException;
+
+    List<DVD> searchByRating(MPAA rating) throws DVDLibraryPersistenceException;
+
+    List<DVD> searchByDirector(String director) throws DVDLibraryPersistenceException;
+
+    List<DVD> searchByStudio(String studio) throws DVDLibraryPersistenceException;
+
+    double getAverageAge() throws DVDLibraryPersistenceException;
+
+    DVD getNewestMovie() throws DVDLibraryPersistenceException;
+
+    DVD getOldestMovie() throws DVDLibraryPersistenceException;
 
     void loadDVD(String path) throws DVDLibraryPersistenceException;
 
     String getPath();
+
+
 
 }

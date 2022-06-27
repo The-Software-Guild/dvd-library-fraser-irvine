@@ -3,6 +3,7 @@ package org.fraserirvine.dvdlibrary.service;
 import org.fraserirvine.dvdlibrary.dao.DVDLibraryPersistenceException;
 import org.fraserirvine.dvdlibrary.dao.DVDLibraryDao;
 import org.fraserirvine.dvdlibrary.dto.DVD;
+import org.fraserirvine.dvdlibrary.dto.MPAA;
 
 import java.util.List;
 
@@ -56,8 +57,43 @@ public class DVDLibraryServiceLayerImpl implements DVDLibraryServiceLayer {
     }
 
     @Override
-    public List<DVD> searchDVD(String title) throws DVDLibraryPersistenceException {
-        return dao.searchDVD(title);
+    public List<DVD> searchByTitle(String title) throws DVDLibraryPersistenceException {
+        return dao.searchByTitle(title);
+    }
+
+    @Override
+    public List<DVD> searchByNYears(int duration) throws DVDLibraryPersistenceException {
+        return dao.searchByYear(duration);
+    }
+
+    @Override
+    public List<DVD> searchByRating(MPAA rating) throws DVDLibraryPersistenceException {
+        return dao.searchByRating(rating);
+    }
+
+    @Override
+    public List<DVD> searchByDirector(String director) throws DVDLibraryPersistenceException {
+        return dao.searchByDirector(director);
+    }
+
+    @Override
+    public List<DVD> searchByStudio(String studio) throws DVDLibraryPersistenceException {
+        return dao.searchByStudio(studio);
+    }
+
+    @Override
+    public double getAverageAge() throws DVDLibraryPersistenceException {
+        return dao.getAverageAge();
+    }
+
+    @Override
+    public DVD getNewestMovie() throws DVDLibraryPersistenceException {
+        return dao.getNewestMovie();
+    }
+
+    @Override
+    public DVD getOldestMovie() throws DVDLibraryPersistenceException {
+        return dao.getOldestMovie();
     }
 
     @Override

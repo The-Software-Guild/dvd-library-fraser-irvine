@@ -209,7 +209,7 @@ class DVDLibraryDaoFileImplTest {
         testDao.addDVD(dvdTwo.getDvdId(), dvdTwo);
 
         //search by full name of wolf of wall street
-        List<DVD> searchOne = testDao.searchDVD("The Wolf of Wall Street");
+        List<DVD> searchOne = testDao.searchByTitle("The Wolf of Wall Street");
 
         assertEquals(
                 1,
@@ -223,7 +223,7 @@ class DVDLibraryDaoFileImplTest {
 
         //search by partial name of wolf of wall street
 
-        List<DVD> searchTwo = testDao.searchDVD("The Wolf");
+        List<DVD> searchTwo = testDao.searchByTitle("The Wolf");
 
         assertEquals(
                 1,
@@ -237,7 +237,7 @@ class DVDLibraryDaoFileImplTest {
 
         // broad search by having an empty search query
 
-        List<DVD> searchThree = testDao.searchDVD("");
+        List<DVD> searchThree = testDao.searchByTitle("");
 
         assertEquals(
                 2,

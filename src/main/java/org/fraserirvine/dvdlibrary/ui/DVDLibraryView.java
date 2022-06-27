@@ -49,9 +49,9 @@ public class DVDLibraryView {
     //
 
 
-    public boolean printPromptKeepEditingAndGetSelection() {
+    public boolean printPromptContinueOperation(String prompt) {
         while (true) {
-            String userInput = io.readString("Would you like to keep editing? [y/n]");
+            String userInput = io.readString(prompt);
             if (userInput.equals("y")) {
                 return true;
             } else if (userInput.equals("n")) {
@@ -175,15 +175,21 @@ public class DVDLibraryView {
     public int printSearchMenuAndGetSelection() {
         io.print("=== Search Menu ===");
         io.print("your available search options");
-        io.print("1. By year since");
-        io.print("2. By MPAA Rating");
-        io.print("3. By Director");
-        io.print("4. By Studio");
-        io.print("5. Print Average Age of movies");
-        io.print("6. Print Newest Movie");
-        io.print("7. Print Oldest Movie");
+        io.print("1. By Title");
+        io.print("2. By year since");
+        io.print("3. By MPAA Rating");
+        io.print("4. By Director");
+        io.print("5. By Studio");
+        io.print("6. Print Average Age of movies");
+        io.print("7. Print Newest Movie");
+        io.print("8. Print Oldest Movie");
 
-        return io.readInt("Select an option to search by");
+        return io.readInt("Select an option to search by",1,8);
+    }
+
+
+    public String searchByTitle() {
+        return io.readString("Enter DVD Title: ");
     }
 
     public int searchByNYears() {
@@ -194,6 +200,15 @@ public class DVDLibraryView {
     public MPAA searchByRating() {
         return readMPAAEnum("Enter an MPAA Rating: [G, PG, PG13, R, NC17]");
     }
+
+    public String searchByDirector() {
+        return io.readString("Enter the director name");
+    }
+
+    public String searchByStudio() {
+        return io.readString("Enter the studio name");
+    }
+
 
     //method to handle user input of MPAA Enums
     public MPAA readMPAAEnum(String prompt) {
@@ -217,8 +232,41 @@ public class DVDLibraryView {
     }
 
 
-    public String getSearchParams() {
-        return io.readString("Enter DVD Title: ");
+
+    //
+    // search user output
+    //
+
+    public void printTitleSearchResult(List<DVD> searchReturns) {
+        io.print(searchReturns.toString());
+    }
+
+    public void printYearSearchResult(List<DVD> searchReturns) {
+        io.print(searchReturns.toString());
+    }
+
+    public void printRatingSearchResult(List<DVD> searchReturns) {
+        io.print(searchReturns.toString());
+    }
+
+    public void printDirectorSearchResult(List<DVD> searchReturns) {
+        io.print(searchReturns.toString());
+    }
+
+    public void printStudioSearchResult(List<DVD> searchReturns) {
+        io.print(searchReturns.toString());
+    }
+
+    public void printAverageAgeSearchResult(double avgAge) {
+        io.print("" + avgAge);
+    }
+
+    public void printNewestMovieSearchResult(DVD newest) {
+        io.print(newest.toString());
+    }
+
+    public void printOldestMovieSearchResult(DVD oldest) {
+        io.print(oldest.toString());
     }
 
     //

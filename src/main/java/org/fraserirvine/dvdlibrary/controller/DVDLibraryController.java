@@ -126,7 +126,7 @@ public class DVDLibraryController {
                     dvdEdit = dvd;
                     break;
             }
-            keepEditing = view.printPromptKeepEditingAndGetSelection();
+            keepEditing = view.printPromptContinueOperation("Would you like to keep editing? [y/n]");
         }
         service.editDVD(dvdEdit);
         view.displayEditDVDSuccessBanner();
@@ -146,23 +146,38 @@ public class DVDLibraryController {
 
     private void searchDVDs() throws DVDLibraryPersistenceException {
         view.displaySearchDVDBanner();
-        String searchParams = view.getSearchParams();
         boolean keepSearching = true;
         while (keepSearching) {
             int searchSelection = view.printSearchMenuAndGetSelection();
+            String searchResults;
             switch (searchSelection) {
                 case 1:
+                    view.printTitleSearchResult(service.searchByTitle(view.searchByTitle()));
+                    break;
                 case 2:
+                    view.printYearSearchResult(service.searchByNYears(view.searchByNYears()));
+                    break;
                 case 3:
+                    view.printRatingSearchResult(service.searchByRating(view.searchByRating()));
+                    break;
                 case 4:
+                    view.printDirectorSearchResult(service.searchByDirector(view.searchByDirector()));
+                    break;
                 case 5:
+                    view.printStudioSearchResult(service.searchByStudio(view.searchByStudio()));
+                    break;
                 case 6:
+                    view.printAverageAgeSearchResult(service.getAverageAge());
+                    break;
                 case 7:
+                    view.printNewestMovieSearchResult(service.getNewestMovie());
+                    break;
+                case 8:
+                    view.printOldestMovieSearchResult(service.getOldestMovie());
+                    break;
             }
+            keepSearching = view.printPromptContinueOperation("Would you like to keep searching? [y/n]");
         }
-
-
-        view.displayDVDList(service.searchDVD(searchParams));
     }
 
     private void loadDVD() {
