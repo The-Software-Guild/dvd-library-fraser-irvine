@@ -8,7 +8,7 @@ public class DVD {
     private String dvdId;
     private String title;
     private LocalDate releaseDate;
-    private String rating;
+    private MPAA rating;
     private String directorName;
     private String studio;
     private String userRating;
@@ -45,11 +45,11 @@ public class DVD {
         this.releaseDate = LocalDate.parse(releaseDate);
     }
 
-    public String getRating() {
+    public MPAA getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(MPAA rating) {
         this.rating = rating;
     }
 

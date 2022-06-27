@@ -1,6 +1,7 @@
 package org.fraserirvine.dvdlibrary.ui;
 
 import org.fraserirvine.dvdlibrary.dto.DVD;
+import org.fraserirvine.dvdlibrary.dto.MPAA;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -72,7 +73,7 @@ public class DVDLibraryView {
     }
 
     public DVD editDVDRating(DVD dvd) {
-        dvd.setRating(io.readString(displayEditingElement("Rating")));
+        dvd.setRating(readMPAAEnum(displayEditingElement("Rating")));
         return dvd;
     }
 
@@ -108,7 +109,7 @@ public class DVDLibraryView {
         String dvdId = io.readString("Please enter DVD ID");
         String title = io.readString("Please enter DVD title");
         LocalDate releaseDate = io.readDate("Please enter release Date");
-        String rating = io.readString("Please enter rating");
+        MPAA rating = readMPAAEnum("Please enter rating");
         String directorName = io.readString("Pleaser enter director name");
         String studio = io.readString("Please enter studio name");
         String userRating = io.readStringAllowEmpty("Optional: enter user rating");
@@ -170,6 +171,51 @@ public class DVDLibraryView {
     //
     // Search DVD
     //
+
+    public int printSearchMenuAndGetSelection() {
+        io.print("=== Search Menu ===");
+        io.print("your available search options");
+        io.print("1. By year since");
+        io.print("2. By MPAA Rating");
+        io.print("3. By Director");
+        io.print("4. By Studio");
+        io.print("5. Print Average Age of movies");
+        io.print("6. Print Newest Movie");
+        io.print("7. Print Oldest Movie");
+
+        return io.readInt("Select an option to search by");
+    }
+
+    public int searchByNYears() {
+        return io.readInt("show all movies released in last number of years:");
+    }
+
+    //returns an enum done with input validation
+    public MPAA searchByRating() {
+        return readMPAAEnum("Enter an MPAA Rating: [G, PG, PG13, R, NC17]");
+    }
+
+    //method to handle user input of MPAA Enums
+    public MPAA readMPAAEnum(String prompt) {
+        while (true){
+            String userInput = io.readString(prompt).toUpperCase();
+            switch (userInput) {
+                case "G":
+                    return MPAA.G;
+                case "PG":
+                    return MPAA.PG;
+                case "PG13":
+                    return MPAA.PG13;
+                case "R":
+                    return MPAA.R;
+                case "NC17":
+                    return MPAA.NC17;
+                default:
+                    io.print("Invalid selection, try again:");
+            }
+        }
+    }
+
 
     public String getSearchParams() {
         return io.readString("Enter DVD Title: ");

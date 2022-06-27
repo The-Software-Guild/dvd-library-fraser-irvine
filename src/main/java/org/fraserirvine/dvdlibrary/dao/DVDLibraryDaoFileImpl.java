@@ -1,6 +1,7 @@
 package org.fraserirvine.dvdlibrary.dao;
 
 import org.fraserirvine.dvdlibrary.dto.DVD;
+import org.fraserirvine.dvdlibrary.dto.MPAA;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -86,11 +87,28 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
 
         dvdFromFile.setTitle(dvdTokens[1]);
         dvdFromFile.setReleaseDate(dvdTokens[2]);
-        dvdFromFile.setRating(dvdTokens[3]);
+        dvdFromFile.setRating(unmarshallStringToEnum(dvdTokens[3]));
         dvdFromFile.setDirectorName(dvdTokens[4]);
         dvdFromFile.setStudio(dvdTokens[5]);
         dvdFromFile.setUserRating(dvdTokens[6]);
         return dvdFromFile;
+    }
+
+    private MPAA unmarshallStringToEnum(String token) {
+        switch (token) {
+            case "G":
+                return MPAA.G;
+            case "PG":
+                return MPAA.PG;
+            case "PG13":
+                return MPAA.PG13;
+            case "R":
+                return MPAA.R;
+            case "NC17":
+                return MPAA.NC17;
+            default:
+                return null;
+        }
     }
 
     private void loadLibrary() throws DVDLibraryPersistenceException {
@@ -117,6 +135,23 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         dvdAsText += dvd.getUserRating();
 
         return dvdAsText;
+    }
+
+    private String marshallMPAAtoString(MPAA ratingEnum) {
+        switch (ratingEnum) {
+            case G:
+                return "G";
+            case PG:
+                return "PG";
+            case PG13:
+                return "PG13";
+            case R:
+                return "R";
+            case NC17:
+                return "NC17";
+            default:
+                return null;
+        }
     }
 
     private void writeLibrary() throws DVDLibraryPersistenceException {
