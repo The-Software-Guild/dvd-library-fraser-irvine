@@ -142,14 +142,6 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         return dvds.values().stream()
                 .min(new MovieAgeComparator())
                 .get();
-
-        /* fallback code
-        loadLibrary();
-        List<DVD> valueList = new ArrayList<>(dvds.values());
-        valueList.sort(new MovieAgeComparator());
-        return valueList.get(valueList.size()-1);
-
-         */
     }
 
 
